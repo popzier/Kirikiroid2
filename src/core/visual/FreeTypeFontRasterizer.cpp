@@ -1,7 +1,7 @@
 
 #include "FreeTypeFontRasterizer.h"
 #include "LayerBitmapIntf.h"
-#include "FreeType.h"
+#include "KrkrFreeType.h"
 #ifndef _USE_MATH_DEFINES
 #define _USE_MATH_DEFINES
 #endif

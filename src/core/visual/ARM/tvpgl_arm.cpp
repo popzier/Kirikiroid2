@@ -10,7 +10,7 @@
 //#define LOG_NEON_TEST
 
 #ifdef __cplusplus
-#if defined(_MSC_VER)
+#if defined(_MSC_VER) || defined(__MACH__)
 #include <opencv2/core/mat.hpp>
 #endif
 #include <vector>
@@ -2498,7 +2498,7 @@ static tjs_int TVPTLG5DecompressSlide_NEON(tjs_uint8 *out, const tjs_uint8 *in, 
 						vst1q_u8(&text[r], c);
 						mpos += 16; r += 16; out += 16;
 					}
-					mlen &= 0x0f;	// Óà¤ê
+					mlen &= 0x0f;	// ï¿½ï¿½ï¿½
 					while (mlen--) {
 						out[0] = text[r++] = text[mpos++]; out++;
 					}

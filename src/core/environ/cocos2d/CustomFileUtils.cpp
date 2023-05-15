@@ -1,8 +1,9 @@
 #include "CustomFileUtils.h"
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 #include "platform/win32/CCFileUtils-win32.h"
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-#import <Foundation/NSBundle.h>
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC
+//#import <Foundation/NSBundle.h>
+#undef CC_FILEUTILS_APPLE_ENABLE_OBJC
 #import "platform/apple/CCFileUtils-apple.h"
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 #include "platform/android/CCFileUtils-android.h"
@@ -19,7 +20,7 @@ NS_CC_BEGIN
 typedef
 #if CC_TARGET_PLATFORM == CC_PLATFORM_WIN32
 FileUtilsWin32
-#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+#elif CC_TARGET_PLATFORM == CC_PLATFORM_IOS || CC_TARGET_PLATFORM == CC_PLATFORM_MAC
 FileUtilsApple
 #elif CC_TARGET_PLATFORM == CC_PLATFORM_ANDROID
 FileUtilsAndroid
@@ -33,9 +34,9 @@ public:
 
 	void addAutoSearchArchive(const std::string& path);
 	virtual std::string fullPathForFilename(const std::string &filename) const override;
-	virtual std::string getStringFromFile(const std::string& filename) override;
-	virtual Data getDataFromFile(const std::string& filename) override;
-	virtual unsigned char* getFileData(const std::string& filename, const char* mode, ssize_t *size) override;
+	virtual std::string getStringFromFile(const std::string& filename); //override;
+	virtual Data getDataFromFile(const std::string& filename); //  override;
+	virtual unsigned char* getFileData(const std::string& filename, const char* mode, ssize_t *size); // override;
 	virtual bool isFileExistInternal(const std::string& strFilePath) const override;
 	virtual bool isDirectoryExistInternal(const std::string& dirPath) const override;
 	virtual bool init() override {
@@ -92,6 +93,7 @@ bool CustomFileUtils::isFileExistInternal(const std::string& strFilePath) const
 	if (_autoSearchArchive.end() != it) {
 		return true;
 	}
+//    return ->isFileExistInternal(strFilePath);
 	return FileUtilsInherit::isFileExistInternal(strFilePath);
 }
 

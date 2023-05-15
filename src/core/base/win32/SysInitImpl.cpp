@@ -931,7 +931,7 @@ void TVPInitializeBaseSystems()
 // system initializer / uninitializer
 //---------------------------------------------------------------------------
 #if 0
-// ƒtƒHƒ‹ƒ_‘I‘ðƒ_ƒCƒAƒƒO‚ÌƒR[ƒ‹ƒoƒbƒNŠÖ”
+// ï¿½tï¿½Hï¿½ï¿½ï¿½_ï¿½Iï¿½ï¿½ï¿½_ï¿½Cï¿½Aï¿½ï¿½ï¿½Oï¿½ÌƒRï¿½[ï¿½ï¿½ï¿½oï¿½bï¿½Nï¿½Öï¿½
 static int CALLBACK TVPBrowseCallbackProc(HWND hwnd,UINT uMsg,LPARAM lParam,LPARAM lpData)
 {
     if(uMsg==BFFM_INITIALIZED){
@@ -1270,7 +1270,7 @@ static void TVPDumpOptions();
 //---------------------------------------------------------------------------
 extern bool TVPEnableGlobalHeapCompaction;
 extern void TVPGL_SSE2_Init();
-extern "C" void TVPGL_ASM_Init();
+//extern "C" void TVPGL_ASM_Init();
 extern bool TVPAutoSaveBookMark;
 static bool TVPHighTimerPeriod = false;
 static uint32_t TVPTimeBeginPeriodRes = 0;
@@ -1321,7 +1321,7 @@ void TVPAfterSystemInit()
 	{
 		TVPGraphicCacheSystemLimit = limitmb * 1024*1024;
 	}
-	// 32bit ‚È‚Ì‚Å 512MB ‚Ü‚Å‚É§ŒÀ
+	// 32bit ï¿½È‚Ì‚ï¿½ 512MB ï¿½Ü‚Å‚Éï¿½ï¿½ï¿½
 	if( TVPGraphicCacheSystemLimit >= 512*1024*1024 )
 		TVPGraphicCacheSystemLimit = 512*1024*1024;
 
@@ -1392,7 +1392,7 @@ void TVPAfterSystemInit()
 #endif
 	TVPGL_SSE2_Init();
 #endif
-	TVPGL_ASM_Init();
+//	TVPGL_ASM_Init();
 
 	// timer precision
 	uint32_t prectick = 1;

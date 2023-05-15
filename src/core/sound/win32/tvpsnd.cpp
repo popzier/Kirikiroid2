@@ -27,7 +27,7 @@ extern "C"{
 
 	extern const IID IID_ITSSWaveDecoder = { 0x313864E2, 0x910E, 0x496F, { 0x8A, 0x6D, 0x43, 0x46, 0x5C, 0x10, 0x5B, 0x58 } };
 
-    extern const IID IID_IUnknown = {0,0,0,{0, 0xc0, 0, 0, 0, 0x46}};//00000000-0000-0000-C000-000000000046
+    extern const IID IID_IUnknownMY = {0,0,0,{0, 0xc0, 0, 0, 0, 0x46}};//00000000-0000-0000-C000-000000000046
     extern const IID IID_IStream = {0xC,0,0,{0, 0xc0, 0, 0, 0, 0x46}};//0000000C-0000-0000-C000-000000000046
     extern const IID IID_ISequentialStream = {0x0c733a30,0x2a1c,0x11ce,{0xad,0xe5,0x00,0xaa,0x00,0x44,0x77,0x3d}};
 #ifdef __cplusplus

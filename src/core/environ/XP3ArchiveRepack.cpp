@@ -24,6 +24,10 @@ extern "C" {
 #include "DetectCPU.h"
 #include <set>
 
+#if defined(__MACH__)
+#define lseek64 lseek
+#endif
+
 using namespace TJS;
 using namespace NArchive::N7z;
 
@@ -217,7 +221,7 @@ XP3ArchiveRepackAsync::XP3ArchiveRepackAsync()
 	: _impl(new XP3ArchiveRepackAsyncImpl())
 {
 	TVPDetectCPU();
-	TVPGL_ASM_Init();
+//	TVPGL_ASM_Init();
 }
 
 XP3ArchiveRepackAsync::~XP3ArchiveRepackAsync() {
@@ -258,7 +262,7 @@ void XP3ArchiveRepackAsync::SetOption(const std::string &name, bool v)
 	_impl->SetOption(name, v);
 }
 
-XP3ArchiveRepackAsyncImpl::XP3ArchiveRepackAsyncImpl()
+XP3ArchiveRepackAsyncImpl::XP3ArchiveRepackAsyncImpl(): CoderCompress(), CoderCopy()
 {
 	if (!g_CrcTable[1]) CrcGenerateTable();
 	CreateCoder(nCodecMethod, true, CoderCompress);

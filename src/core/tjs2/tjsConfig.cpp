@@ -26,10 +26,10 @@
 /*
  * core/utils/cp932_uni.cpp
  * core/utils/uni_cp932.cpp
- * ‚ğˆê‚ÉƒŠƒ“ƒN‚µ‚Ä‚­‚¾‚³‚¢B
- * CP932(ShiftJIS) ‚Æ Unicode •ÏŠ·‚Ég—p‚µ‚Ä‚¢‚Ü‚·B
- * Win32 API‚Ì“¯“™‚ÌŠÖ”‚ÍŒİŠ·«“™‚Ì–â‘è‚ª‚ ‚é‚±‚Æ‚âƒ}ƒ‹ƒ`ƒvƒ‰ƒbƒgƒtƒH[ƒ€‚Ì‘«‚©‚¹‚Æ‚È‚é
- * ‚½‚ßg—p‚ª’†~‚³‚ê‚Ü‚µ‚½B
+ * ï¿½ï¿½ï¿½êï¿½Éƒï¿½ï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½Ä‚ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½B
+ * CP932(ShiftJIS) ï¿½ï¿½ Unicode ï¿½ÏŠï¿½ï¿½Égï¿½pï¿½ï¿½ï¿½Ä‚ï¿½ï¿½Ü‚ï¿½ï¿½B
+ * Win32 APIï¿½Ì“ï¿½ï¿½ï¿½ï¿½ÌŠÖï¿½ï¿½ÍŒİŠï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì–ï¿½è‚ªï¿½ï¿½ï¿½é‚±ï¿½Æ‚ï¿½}ï¿½ï¿½ï¿½`ï¿½vï¿½ï¿½ï¿½bï¿½gï¿½tï¿½Hï¿½[ï¿½ï¿½ï¿½Ì‘ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ‚È‚ï¿½
+ * ï¿½ï¿½ï¿½ßgï¿½pï¿½ï¿½ï¿½ï¿½ï¿½~ï¿½ï¿½ï¿½ï¿½Ü‚ï¿½ï¿½ï¿½ï¿½B
  */
 #if 0
 extern tjs_size SJISToUnicodeString(const char * in, tjs_char *out);
@@ -407,7 +407,7 @@ size_t TJS_wcstombs(tjs_nchar *s, const tjs_char *pwcs, size_t n)
     }
 }
 //---------------------------------------------------------------------------
-// g‚í‚ê‚Ä‚¢‚È‚¢‚æ‚¤‚È‚Ì‚Å–¢Šm”F’ˆÓ
+// ï¿½gï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½æ‚¤ï¿½È‚Ì‚Å–ï¿½ï¿½mï¿½Fï¿½ï¿½ï¿½ï¿½
 int TJS_mbtowc(tjs_char *pwc, const tjs_nchar *s, size_t n)
 {
 #if 0
@@ -453,7 +453,7 @@ int TJS_mbtowc(tjs_char *pwc, const tjs_nchar *s, size_t n)
     return ret;
 }
 //---------------------------------------------------------------------------
-// g‚í‚ê‚Ä‚¢‚È‚¢‚æ‚¤‚È‚Ì‚Å–¢Šm”F’ˆÓ
+// ï¿½gï¿½ï¿½ï¿½Ä‚ï¿½ï¿½È‚ï¿½ï¿½æ‚¤ï¿½È‚Ì‚Å–ï¿½ï¿½mï¿½Fï¿½ï¿½ï¿½ï¿½
 int TJS_wctomb(tjs_nchar *s, tjs_char wc)
 {
 #if 0
@@ -544,7 +544,7 @@ static unsigned int TJSNewFPUCW = 0;
 static unsigned int TJSDefaultMMCW = 0;
 static bool TJSFPUInit = false;
 #endif
-// FPU—áŠO‚ğƒ}ƒXƒN
+// FPUï¿½ï¿½Oï¿½ï¿½ï¿½}ï¿½Xï¿½N
 void TJSSetFPUE()
 {
 #if defined(__WIN32__) && !defined(__GNUC__)
@@ -576,7 +576,7 @@ void TJSSetFPUE()
 #endif	// defined(__WIN32__) && !defined(__GNUC__)
 
 }
-// —áŠOƒ}ƒXƒN‚ğ‰ğœ‚µŒ³‚É–ß‚·
+// ï¿½ï¿½Oï¿½}ï¿½Xï¿½Nï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½É–ß‚ï¿½
 void TJSRestoreFPUE()
 {
 #if defined(__WIN32__) && !defined(__GNUC__)
@@ -1495,7 +1495,7 @@ static int fmt_fp(_tFILE *f, long double y, int w, int p, int fl, int t)
         prefix+=6;
     } else prefix++, pl=0;
 
-    if (!isfinite(y)) {
+    if (finite(y)) {
         const tjs_char *s = (t&32)?TJS_W("inf"):TJS_W("INF");
         if (y!=y) s=(t&32)?TJS_W("nan"):TJS_W("NAN"), pl=0;
         pad(f, ' ', w, 3+pl, fl&~ZERO_PAD);
@@ -2481,8 +2481,9 @@ size_t __strftime_l(tjs_char *s, size_t n, const tjs_char *f, const tm *tm)
         }
         f = p;
         if (*f == 'E' || *f == 'O') f++;
-        t = __strftime_fmt_1(&buf, &k, *f, tm);
-        if (!t) return 0;
+//        t = __strftime_fmt_1(&buf, &k, *f, tm);
+//        if (!t)
+        return 0;
         if (width) {
             for (; *t=='+' || *t=='-' || (*t=='0'&&t[1]); t++, k--);
             width--;
@@ -2709,7 +2710,8 @@ size_t TJS_strftime( tjs_char *wstring, size_t maxsize, const tjs_char *wformat,
 int TJS_vsnprintf( tjs_char *string, size_t count, const tjs_char *format, va_list ap )
 {
     
-    return _vsnprintf(string, count, format, ap);
+//    return _vsnprintf(string, count, format, ap);
+    return vsnprintf(reinterpret_cast<char *>(string), count, reinterpret_cast<const char *>(format), ap);
 }
 
 tjs_int TJS_snprintf(tjs_char *s, size_t count, const tjs_char *format, ...)

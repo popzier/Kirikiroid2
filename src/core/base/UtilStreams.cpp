@@ -22,6 +22,9 @@
 #include <codecvt>
 #include <locale>
 
+#if defined(__MACH__)
+#define lseek64 lseek
+#endif
 //---------------------------------------------------------------------------
 // tTVPLocalTempStorageHolder
 //---------------------------------------------------------------------------
@@ -371,8 +374,8 @@ tjs_uint64 TJS_INTF_METHOD tTVPPartialStream::GetSize()
 
 
 extern "C" {
-#include "libarchive/archive.h"
-#include "libarchive/archive_entry.h"
+#include "archive.h"
+#include "archive_entry.h"
 }
 #if 0
 class LibArchive_Archive : public tTVPArchive {
@@ -769,8 +772,8 @@ extern "C" {
 #include "win32io.h"
 
 static ISzAlloc allocImp = {
-	[](void *p, size_t size) -> void * { return malloc(size); },
-	[](void *p, void *addr) { free(addr); }
+	[](void* p, size_t size) -> void * { return malloc(size); },
+	[](void* p, void *addr) { free(addr); }
 };
 class tTVPUnpackArchiveImpl7Zip : public tTVPUnpackArchiveImplLibArchive {
 	int _stream;
@@ -833,8 +836,8 @@ public:
 	}
 };
 
-#include "unrar/raros.hpp"
-#include "unrar/dll.hpp"
+#include "raros.hpp"
+#include "dll.hpp"
 class tTVPUnpackArchiveImplUnRAR : public iTVPUnpackArchiveImpl {
 	std::string _archivePath;
 	tjs_int _filecount;

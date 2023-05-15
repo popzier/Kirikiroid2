@@ -26,7 +26,7 @@ extern "C" {
 #include "xxhash/xxhash.h"
 #include "tjsHashSearch.h"
 #include "EventIntf.h"
-#include "lz4/lz4.h"
+#include "lz4.h"
 
 #ifdef _MSC_VER
 #pragma comment(lib,"opencv_ts300d.lib")

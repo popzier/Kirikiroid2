@@ -971,11 +971,19 @@ void TVPBaseFileSelectorForm::FileItemCellImpl::initFromFile(const char * filena
 					}
 				}, 1.0f, str_long_press);
 				break;
+            case Widget::TouchEventType::MOVED: {
+                auto diff = sender->getTouchMovePosition() - sender->getTouchBeganPosition();
+                if (abs(diff.x) > 5 and abs(diff.y) > 5) {
+                    sender->unschedule(str_long_press);
+                }
+				break;
+            }
 			case Widget::TouchEventType::CANCELED:
 				sender->unschedule(str_long_press);
 				break;
 			}
 		});
+        HighLight->setSwallowTouches(false);
 	}
 	BgOdd = reader.findController("bg_odd", false);
 	BgEven = reader.findController("bg_even", false);

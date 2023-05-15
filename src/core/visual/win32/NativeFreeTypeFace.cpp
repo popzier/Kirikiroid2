@@ -16,7 +16,7 @@
 //#include "../prec.h"
 #include "tjsCommHead.h"
 #include "NativeFreeTypeFace.h"
-#include "FreeType.h"
+#include "KrkrFreeType.h"
 #include "MsgIntf.h"
 
 #ifdef _MSC_VER

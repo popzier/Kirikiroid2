@@ -55,7 +55,7 @@ void TVPSystemInit(void)
 	TVPInitTVPGL();
 //	TVPGL_C_Init();
 
-	TVPAfterSystemInit();
+//	TVPAfterSystemInit();
 }
 //---------------------------------------------------------------------------
 

@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <assert.h>
 #include <string.h>
-#include <sys/sysinfo.h>
+//#include <sys/sysinfo.h>
 #include <sys/time.h>
 #include <sys/resource.h>
 

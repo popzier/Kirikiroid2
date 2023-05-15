@@ -9,6 +9,7 @@
 #include <cmath>
 #include "ThreadIntf.h"
 #include "tvpgl.h"
+#undef __SSE4_1__
 
 #define _bswap(x) ((x&0xFF)<<24)|((x&0xFF00)<<8)|((x&0xFF0000)>>8)|(x>>24)
 namespace std {

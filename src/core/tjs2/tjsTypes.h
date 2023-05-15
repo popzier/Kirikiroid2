@@ -133,10 +133,12 @@ typedef uintptr_t tjs_uintptr_t;
 
 #ifdef __cplusplus
     typedef char16_t tjs_char;
+    // typedef wchar_t tjs_char;
 #else
     typedef unsigned short tjs_char;
 #endif
 #define TJS_W(X) u##X
+// #define TJS_W(X) L##X
 #define TJS_N(X) X
 
 typedef char tjs_nchar;

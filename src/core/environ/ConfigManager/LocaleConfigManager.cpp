@@ -14,7 +14,7 @@ std::string LocaleConfigManager::GetFilePath() {
 	std::string fullpath = pathprefix + currentLangCode + ".xml"; // exp. "local/en_us.xml"
 	if (!cocos2d::FileUtils::getInstance()->isFileExist(fullpath)) {
 		currentLangCode = "en_us"; // restore to default language config(must exist)
-		return GetFilePath();
+		return "";
 	}
 	return cocos2d::FileUtils::getInstance()->fullPathForFilename(fullpath);
 }

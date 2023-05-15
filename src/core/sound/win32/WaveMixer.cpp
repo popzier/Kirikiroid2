@@ -379,7 +379,8 @@ public:
 	}
 };
 
-#ifdef __ANDROID__
+#if 0 
+//def __ANDROID__
 class tTVPAudioRendererOboe : public iTVPAudioRenderer, public oboe::AudioStreamCallback {
 	oboe::AudioStream *_oboeAudioStream = nullptr;
 
@@ -719,9 +720,9 @@ void tTVPSoundBufferAL::checkerr(const char *funcname) {
 static iTVPAudioRenderer *CreateAudioRenderer() {
 	iTVPAudioRenderer *renderer = nullptr;
 #ifdef __ANDROID__
-	renderer = new tTVPAudioRendererOboe;
-	if (renderer->Init()) return renderer;
-	delete renderer;
+// 	renderer = new tTVPAudioRendererOboe;
+// 	if (renderer->Init()) return renderer;
+// 	delete renderer;
 #elif defined(_MSC_VER) && 0
 	renderer = new tTVPAudioRendererSDL;
 	renderer->Init();

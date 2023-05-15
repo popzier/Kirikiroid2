@@ -54,7 +54,7 @@ public:
 #endif
 	static ttstr GetDataPathDirectory(ttstr datapath, const ttstr& exename) {
 		ttstr nativeDataPath = TVPGetAppPath();
-		TVPGetLocalName(nativeDataPath);
+//		TVPGetLocalName(nativeDataPath);
 		nativeDataPath += "/savedata/";
 		return nativeDataPath;
 #if 0

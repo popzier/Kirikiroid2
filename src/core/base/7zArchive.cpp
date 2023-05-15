@@ -10,8 +10,8 @@ extern "C" {
 #include "StorageImpl.h"
 
 static ISzAlloc allocImp = {
-	[](void *p, size_t size) -> void *{ return malloc(size); },
-	[](void *p, void *addr) { free(addr); }
+	[](void* p, unsigned long size) -> void *{ return malloc(size); },
+	[](void* p, void *addr) { free(addr); }
 };
 
 class SevenZipStreamWrap {

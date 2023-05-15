@@ -10,6 +10,9 @@
 //---------------------------------------------------------------------------
 #include "tjsCommHead.h"
 
+#if defined(__MACH__)
+#define lseek64 lseek
+#endif
 // #include <cderr.h>
 // #include <objbase.h>
 

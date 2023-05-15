@@ -107,7 +107,7 @@ tjs_int TJSGetShorterStrLen(const tjs_char *str, tjs_int max)
 //---------------------------------------------------------------------------
 // StringHeap
 //---------------------------------------------------------------------------
-//#define TJS_VS_USE_SYSTEM_NEW
+#define TJS_VS_USE_SYSTEM_NEW
 
 #define HEAP_FLAG_USING 0x01
 #define HEAP_FLAG_DELETE 0x02
@@ -337,7 +337,7 @@ void TJSCompactStringHeap()
 			{
 				tjs_int freecount = 0;
 				tTJSVariantString * block = (*TJSStringHeapList)[block_ind];
-				for(tjs_int i = 0; i < HEAP_CAPACITY_INC; i++)
+				for(tjs_int i = 0; i < std::min(HEAP_CAPACITY_INC, block->GetLength()); i++)
 				{
 					if(!(block[i].HeapFlag & HEAP_FLAG_USING))
 						freecount ++;

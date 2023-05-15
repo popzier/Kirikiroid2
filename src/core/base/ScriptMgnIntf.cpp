@@ -570,12 +570,15 @@ void TVPUninitScriptEngine()
 	TVPScriptEngineUninit = true;
 
 	//TVPScriptEngine->Shutdown();
-	TVPScriptEngine->Release();
-	/*
-		Objects, theirs lives are contolled by reference counter, may not be all
-		freed here in some occations.
-	*/
-	TVPScriptEngine = NULL;
+    if (TVPScriptEngine)
+    {
+        TVPScriptEngine->Release();
+        /*
+            Objects, theirs lives are contolled by reference counter, may not be all
+            freed here in some occations.
+        */
+        TVPScriptEngine = NULL;
+    }
 }
 //---------------------------------------------------------------------------
 
@@ -1229,11 +1232,11 @@ void TVPShowScriptException(eTJSScriptError &e)
 				tjs_int lineno = 1+e.GetBlockNoAddRef()->SrcPosToLine(e.GetPosition() )- e.GetBlockNoAddRef()->GetLineOffset();
 
 #if defined(WIN32) && defined(_DEBUG) && !defined(ENABLE_DEBUGGER)
-// ƒfƒoƒbƒKÀs‚³‚ê‚Ä‚¢‚éAVisual Studio ‚ÅsƒWƒƒƒ“ƒv‚·‚é‚Ìw’è‚ğƒfƒoƒbƒOo—Í‚Éo‚µ‚ÄAbreak ‚Å’â~‚·‚é
+// ï¿½fï¿½oï¿½bï¿½Kï¿½ï¿½ï¿½sï¿½ï¿½ï¿½ï¿½Ä‚ï¿½ï¿½éï¿½AVisual Studio ï¿½Åsï¿½Wï¿½ï¿½ï¿½ï¿½ï¿½vï¿½ï¿½ï¿½éï¿½Ìwï¿½ï¿½ï¿½ï¿½fï¿½oï¿½bï¿½Oï¿½oï¿½Í‚Éoï¿½ï¿½ï¿½ÄAbreak ï¿½Å’ï¿½~ï¿½ï¿½ï¿½ï¿½
 				if( ::IsDebuggerPresent() ) {
 					std::wstring debuglile( std::wstring(L"2>")+path.AsStdString()+L"("+std::to_wstring(lineno)+L"): error :" + errstr.AsStdString() );
 					::OutputDebugString( debuglile.c_str() );
-					// ‚±‚±‚Å break‚Å’â~‚µ‚½A’¼‘O‚Ìo—Ís‚ğƒ_ƒuƒ‹ƒNƒŠƒbƒN‚·‚ê‚ÎA—áŠO‰ÓŠ‚ÌƒXƒNƒŠƒvƒg‚ğVisual Studio‚ÅŠJ‚¯‚é
+					// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ breakï¿½Å’ï¿½~ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½Oï¿½Ìoï¿½Ísï¿½ï¿½ï¿½_ï¿½uï¿½ï¿½ï¿½Nï¿½ï¿½ï¿½bï¿½Nï¿½ï¿½ï¿½ï¿½ÎAï¿½ï¿½Oï¿½Óï¿½ï¿½ÌƒXï¿½Nï¿½ï¿½ï¿½vï¿½gï¿½ï¿½Visual Studioï¿½ÅŠJï¿½ï¿½ï¿½ï¿½
 					::DebugBreak();
 				}
 #endif

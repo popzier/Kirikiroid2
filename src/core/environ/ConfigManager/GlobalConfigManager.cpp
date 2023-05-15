@@ -10,7 +10,7 @@ class XMLMemPrinter : public tinyxml2::XMLPrinter {
 	tTVPMemoryStream _stream;
 	char _buffer[4096];
 public:
-	virtual void Print(const char* format, ...) override {
+	virtual void Print(const char* format, ...) { // override {
 		va_list param;
 		va_start(param, format);
 		int n = vsnprintf(_buffer, 4096, format, param);
@@ -46,7 +46,8 @@ void iSysConfigManager::Initialize() {
 #ifdef _MSC_VER
 	fp = _wfopen(ttstr(GetFilePath()).c_str(), TJS_W("rb"));
 #else
-	fp = fopen(GetFilePath().c_str(), "rb");
+    auto path = GetFilePath();
+	fp = fopen(path.c_str(), "rb");
 #endif
 
 	if (fp && !doc.LoadFile(fp)) {

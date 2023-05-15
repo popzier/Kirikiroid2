@@ -12,7 +12,7 @@
 //---------------------------------------------------------------------------
 
 #include "tjsCommHead.h"
-#include "FreeType.h"
+#include "KrkrFreeType.h"
 //#include "NativeFreeTypeFace.h"
 //#include "uni_cp932.h"
 //#include "cp932_uni.h"

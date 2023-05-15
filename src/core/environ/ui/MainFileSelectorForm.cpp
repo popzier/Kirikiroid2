@@ -171,9 +171,9 @@ void TVPMainFileSelectorForm::show() {
 		lastpath = split_path.first;
 	}
 	if (lastpath.size() <= RootPathLen) {
-		lastpath = TVPGetDriverPath()[0];
+//		lastpath = TVPGetDriverPath()[0];
 	}
-	ListDir(lastpath); // getCurrentDir()
+//	ListDir(lastpath); // getCurrentDir()
 	// TODO show usage
 }
 
@@ -286,6 +286,13 @@ std::string TVPGetOpenGLInfo();
 void TVPOpenPatchLibUrl();
 
 void TVPMainFileSelectorForm::showMenu(Ref*) {
+    int archiveType;
+    std::string local_path = "/Users/chentiejun/Downloads/御界神纪1-2/御界神纪EP1/运行游戏.xp3";
+    if ((archiveType = TVPCheckArchive(local_path)) == 1) {
+        startup(local_path);
+    }
+
+    return;
 	if (!_menu) {
 		Size uiSize = getContentSize();
 		CSBReader reader;

@@ -35,7 +35,7 @@
 
 USING_NS_CC;
 
-#define KR2ActJavaPath "org/tvp/kirikiri2/KR2Activity"
+#define KR2ActJavaPath "org/tvp/kirikiri2n/KR2Activity"
 //#define KR2EntryJavaPath "org/tvp/kirikiri2/Kirikiroid2"
 
 extern unsigned int __page_size = getpagesize();
@@ -437,7 +437,7 @@ using namespace kr2android;
 
 int TVPShowSimpleMessageBox(const char *pszText, const char *pszTitle, unsigned int nButton, const char **btnText) {
 	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2/KR2Activity", "ShowMessageBox", "(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V"))
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2n/KR2Activity", "ShowMessageBox", "(Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V"))
 	{
 		jstring jstrTitle = methodInfo.env->NewStringUTF(pszTitle);
 		jstring jstrText = methodInfo.env->NewStringUTF(pszText);
@@ -482,7 +482,7 @@ int TVPShowSimpleMessageBox(const ttstr & text, const ttstr & caption, const std
 
 int TVPShowSimpleInputBox(ttstr &text, const ttstr &caption, const ttstr &prompt, const std::vector<ttstr> &vecButtons) {
 	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2/KR2Activity", "ShowInputBox", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V"))
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2n/KR2Activity", "ShowInputBox", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;)V"))
 	{
 		jstring jstrTitle = methodInfo.env->NewStringUTF(caption.AsStdString().c_str());
 		jstring jstrText = methodInfo.env->NewStringUTF(text.AsStdString().c_str());
@@ -611,7 +611,7 @@ void Android_PushEvents(const std::function<void()> &func) {
 
 void TVPControlAdDialog(int adType, int arg1, int arg2) {
 	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2/KR2Activity", "MessageController", "(III)V")) {
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2n/KR2Activity", "MessageController", "(III)V")) {
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, adType, arg1, arg2);
 		methodInfo.env->DeleteLocalRef(methodInfo.classID);
 	}
@@ -642,7 +642,7 @@ void TVPFetchSDCardPermission() {
 	std::vector<std::string> paths;
 	GetExternalStoragePath(paths);
 	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2/KR2Activity", "requireLEXA", "(Ljava/lang/String;)V")) {
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2n/KR2Activity", "requireLEXA", "(Ljava/lang/String;)V")) {
 		jstring jstrPath = methodInfo.env->NewStringUTF(paths.back().c_str());
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, jstrPath);
 		methodInfo.env->DeleteLocalRef(jstrPath);
@@ -659,10 +659,11 @@ bool TVPCheckStartupPath(const std::string &path) {
 	std::string testPath = parent + cocos2d::StringUtils::format("/_check_save_%d.tmp", time(nullptr));
 	JniMethodInfo methodInfo;
 	bool success = false;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2/KR2Activity", "isWritableNormal", "(Ljava/lang/String;)Z")) {
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2n/KR2Activity", "isWritableNormal", "(Ljava/lang/String;)Z")) {
 		jstring jstrPath = methodInfo.env->NewStringUTF(testPath.c_str());
 		success = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jstrPath);
 		methodInfo.env->DeleteLocalRef(jstrPath);
+        TVPDeleteFile(testPath.c_str());
 #if 0
 		if (success) {
 			parent += "/savedata";
@@ -720,7 +721,7 @@ bool TVPCheckStartupPath(const std::string &path) {
 bool TVPCreateFolders(const ttstr &folder)
 {
 	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2/KR2Activity", "CreateFolders", "(Ljava/lang/String;)Z")) {
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2n/KR2Activity", "CreateFolders", "(Ljava/lang/String;)Z")) {
 		jstring jstr = methodInfo.env->NewStringUTF(folder.AsStdString().c_str());
 		bool ret = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jstr);
 		methodInfo.env->DeleteLocalRef(jstr);
@@ -732,7 +733,7 @@ bool TVPCreateFolders(const ttstr &folder)
 
 static bool TVPWriteDataToFileJava(const std::string &filename, const void* data, unsigned int size) {
 	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2/KR2Activity", "WriteFile", "(Ljava/lang/String;[B)Z")) {
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2n/KR2Activity", "WriteFile", "(Ljava/lang/String;[B)Z")) {
 		cocos2d::FileUtils *fileutil = cocos2d::FileUtils::getInstance();
 		bool ret = false;
 		int retry = 3;
@@ -790,7 +791,7 @@ std::string TVPGetCurrentLanguage() {
 	JniMethodInfo t;
 	std::string ret("");
 	
-	if (JniHelper::getStaticMethodInfo(t, "org/tvp/kirikiri2/KR2Activity", "getLocaleName", "()Ljava/lang/String;")) {
+	if (JniHelper::getStaticMethodInfo(t, "org/tvp/kirikiri2n/KR2Activity", "getLocaleName", "()Ljava/lang/String;")) {
 		jstring str = (jstring)t.env->CallStaticObjectMethod(t.classID, t.methodID);
 		t.env->DeleteLocalRef(t.classID);
 		ret = JniHelper::jstring2string(str);
@@ -805,7 +806,7 @@ void TVPExitApplication(int code) {
 	if (!TVPIsSoftwareRenderManager())
 		iTVPTexture2D::RecycleProcess();
 	JniMethodInfo t;
-	if (JniHelper::getStaticMethodInfo(t, "org/tvp/kirikiri2/KR2Activity", "exit", "()V")) {
+	if (JniHelper::getStaticMethodInfo(t, "org/tvp/kirikiri2n/KR2Activity", "exit", "()V")) {
 		t.env->CallStaticVoidMethod(t.classID, t.methodID);
 		t.env->DeleteLocalRef(t.classID);
 	}
@@ -814,14 +815,14 @@ void TVPExitApplication(int code) {
 
 void TVPHideIME() {
 	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2/KR2Activity", "hideTextInput", "()V")) {
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2n/KR2Activity", "hideTextInput", "()V")) {
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID);
 	}
 }
 
 void TVPShowIME(int x, int y, int w, int h) {
 	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2/KR2Activity", "showTextInput", "(IIII)V")) {
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2n/KR2Activity", "showTextInput", "(IIII)V")) {
 		methodInfo.env->CallStaticVoidMethod(methodInfo.classID, methodInfo.methodID, x, y, w, h);
 	}
 }
@@ -830,7 +831,7 @@ void TVPProcessInputEvents() {}
 
 bool TVPDeleteFile(const std::string &filename) {
 	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2/KR2Activity", "DeleteFile", "(Ljava/lang/String;)Z")) {
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2n/KR2Activity", "DeleteFile", "(Ljava/lang/String;)Z")) {
 		jstring jstr = methodInfo.env->NewStringUTF(filename.c_str());
 		bool ret = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jstr);
 		methodInfo.env->DeleteLocalRef(jstr);
@@ -842,7 +843,7 @@ bool TVPDeleteFile(const std::string &filename) {
 
 bool TVPRenameFile(const std::string &from, const std::string &to) {
 	JniMethodInfo methodInfo;
-	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2/KR2Activity", "RenameFile", "(Ljava/lang/String;Ljava/lang/String;)Z")) {
+	if (JniHelper::getStaticMethodInfo(methodInfo, "org/tvp/kirikiri2n/KR2Activity", "RenameFile", "(Ljava/lang/String;Ljava/lang/String;)Z")) {
 		jstring jstr = methodInfo.env->NewStringUTF(from.c_str());
 		jstring jstr2 = methodInfo.env->NewStringUTF(to.c_str());
 		bool ret = methodInfo.env->CallStaticBooleanMethod(methodInfo.classID, methodInfo.methodID, jstr, jstr2);
