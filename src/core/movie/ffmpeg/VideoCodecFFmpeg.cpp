@@ -357,10 +357,10 @@ bool CDVDVideoCodecFFmpeg::Open(CDVDStreamInfo &hints, CDVDCodecOptions &options
   // ffmpeg with enabled neon will crash and burn if this is enabled
   m_pCodecContext->flags &= CODEC_FLAG_EMU_EDGE;
 #else
-  if (pCodec->id != AV_CODEC_ID_H264 && pCodec->capabilities & CODEC_CAP_DR1
+  if (pCodec->id != AV_CODEC_ID_H264 && pCodec->capabilities & AV_CODEC_CAP_DR1
       && pCodec->id != AV_CODEC_ID_VP8
      )
-    m_pCodecContext->flags |= CODEC_FLAG_EMU_EDGE;
+    m_pCodecContext->flags |= 0x4000;
 #endif
 
   // if we don't do this, then some codecs seem to fail.
@@ -371,7 +371,7 @@ bool CDVDVideoCodecFFmpeg::Open(CDVDStreamInfo &hints, CDVDCodecOptions &options
   if( hints.extradata && hints.extrasize > 0 )
   {
     m_pCodecContext->extradata_size = hints.extrasize;
-    m_pCodecContext->extradata = (uint8_t*)av_mallocz(hints.extrasize + FF_INPUT_BUFFER_PADDING_SIZE);
+    m_pCodecContext->extradata = (uint8_t*)av_mallocz(hints.extrasize + AV_INPUT_BUFFER_PADDING_SIZE);
     memcpy(m_pCodecContext->extradata, hints.extradata, hints.extrasize);
   }
 
@@ -864,13 +864,13 @@ bool CDVDVideoCodecFFmpeg::GetPictureCommon(DVDVideoPicture* pDvdVideoPicture)
 
   switch (qscale_type)
   {
-  case FF_QSCALE_TYPE_MPEG1:
+  case 0:
     pDvdVideoPicture->qscale_type = DVP_QSCALE_MPEG1;
     break;
-  case FF_QSCALE_TYPE_MPEG2:
+  case 1:
     pDvdVideoPicture->qscale_type = DVP_QSCALE_MPEG2;
     break;
-  case FF_QSCALE_TYPE_H264:
+  case 2:
     pDvdVideoPicture->qscale_type = DVP_QSCALE_H264;
     break;
   default:
@@ -969,8 +969,8 @@ int CDVDVideoCodecFFmpeg::FilterOpen(const std::string& filters, bool scale)
     return -1;
   }
 
-  AVFilter* srcFilter = avfilter_get_by_name("buffer");
-  AVFilter* outFilter = avfilter_get_by_name("buffersink"); // should be last filter in the graph for now
+  const AVFilter* srcFilter = avfilter_get_by_name("buffer");
+  const AVFilter* outFilter = avfilter_get_by_name("buffersink"); // should be last filter in the graph for now
 
   char args[128];
   sprintf(args, "%d:%d:%d:%d:%d:%d:%d",

@@ -8,9 +8,6 @@
 #include <sys/stat.h>
 #include <sys/resource.h>
 
-#import <Foundation/NSFileManager.h>
-#import <Foundation/NSData.h>
-
 void TVPGetMemoryInfo(TVPMemoryInfo &m)
 {
 //    /* to read /proc/meminfo */
@@ -73,7 +70,6 @@ void TVPGetMemoryInfo(TVPMemoryInfo &m)
 
 #include <sched.h>
 void TVPRelinquishCPU(){
-    printf("%s:%d\n", __FILE_NAME__, __LINE__);
     sched_yield();
 }
 
@@ -109,7 +105,6 @@ bool TVP_stat(const char *name, tTVP_stat &s) {
 }
 
 bool TVP_stat(const tjs_char *name, tTVP_stat &s) {
-    printf("%s:%d\n", __FILE_NAME__, __LINE__);
     tTJSNarrowStringHolder holder(name);
     return TVP_stat(holder, s);
 }
@@ -244,7 +239,6 @@ bool TVPCreateFolders(const ttstr &folder)
         strRemove(folderStr, prefix);
     }
     printf("%s:%d -> %s\n", __FILE_NAME__, __LINE__, folderStr.c_str());
-    NSFileManager * manager = [NSFileManager defaultManager];
 //    return [manager createFileAtPath:[NSString stringWithCString:folder.AsStdString().c_str()] contents:nil attributes:nil];
     std::string command;
     command = "mkdir -p " + folderStr;
