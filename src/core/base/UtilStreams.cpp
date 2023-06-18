@@ -835,8 +835,11 @@ public:
 		return true;
 	}
 };
-
+#if TARGET_OS_IPHONE
+#include <raros.hpp>
+#else
 #include "raros.hpp"
+#endif
 #include "dll.hpp"
 class tTVPUnpackArchiveImplUnRAR : public iTVPUnpackArchiveImpl {
 	std::string _archivePath;

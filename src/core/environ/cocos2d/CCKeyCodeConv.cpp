@@ -1,5 +1,5 @@
 #include "CCKeyCodeConv.h"
-#include "cocos/base/CCController.h"
+#include "base/CCController.h"
 #include "vkdefine.h"
 
 int TVPConvertMouseBtnToVKCode(tTVPMouseButton _mouseBtn)

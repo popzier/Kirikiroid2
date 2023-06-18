@@ -1,6 +1,6 @@
 #pragma once
 #include "BaseForm.h"
-#include "GUI/CCScrollView/CCTableView.h"
+#include "extensions/GUI/CCScrollView/CCTableView.h"
 #include "base/CCRefPtr.h"
 
 class TVPListForm : public cocos2d::Node {

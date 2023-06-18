@@ -22,7 +22,11 @@
 #pragma warning(push)
 #pragma warning(disable : 4819)
 #endif
+#if TARGET_OS_IPHONE
+#include <freetype2/ft2build.h>
+#else
 #include <ft2build.h>
+#endif
 #include FT_FREETYPE_H
 #ifdef _MSC_VER
 #pragma warning(pop)

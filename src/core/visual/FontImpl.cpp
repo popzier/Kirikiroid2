@@ -1,5 +1,9 @@
 #include "FontImpl.h"
+#if TARGET_OS_IPHONE
+#include <freetype2/ft2build.h>
+#else
 #include <ft2build.h>
+#endif
 #include FT_TRUETYPE_IDS_H
 #include FT_SFNT_NAMES_H
 #include FT_FREETYPE_H

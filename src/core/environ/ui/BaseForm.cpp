@@ -1,6 +1,6 @@
 #include "BaseForm.h"
 #include "cocos2d.h"
-#include "cocostudio/ActionTimeline/CSLoader.h"
+#include "editor-support/cocostudio/ActionTimeline/CSLoader.h"
 #include "Application.h"
 #include "ui/UIWidget.h"
 #include "cocos2d/MainScene.h"
@@ -9,7 +9,7 @@
 #include "ui/UIButton.h"
 #include "ui/UIListView.h"
 #include "Platform.h"
-#include "cocostudio/ActionTimeline/CCActionTimeline.h"
+#include "editor-support/cocostudio/ActionTimeline/CCActionTimeline.h"
 #include "extensions/GUI/CCScrollView/CCTableView.h"
 
 using namespace cocos2d;

@@ -28,7 +28,11 @@
 #pragma warning(push)
 #pragma warning(disable : 4819)
 #endif
+#if TARGET_OS_IPHONE
+#include <freetype2/ft2build.h>
+#else
 #include <ft2build.h>
+#endif
 #include FT_TRUETYPE_UNPATENTED_H
 #include FT_SYNTHESIS_H
 #include FT_BITMAP_H

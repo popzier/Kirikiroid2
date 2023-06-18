@@ -2,7 +2,7 @@
 #include "MainScene.h"
 #include "ui/MainFileSelectorForm.h"
 #include "ui/extension/UIExtension.h"
-#include "cocostudio/FlatBuffersSerialize.h"
+#include "editor-support/cocostudio/FlatBuffersSerialize.h"
 #include "ConfigManager/LocaleConfigManager.h"
 #include "ConfigManager/GlobalConfigManager.h"
 #include "Application.h"

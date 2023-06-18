@@ -19,7 +19,11 @@
 #include <sstream>
 #include <iomanip>
 #include "DebugIntf.h"
+#if TARGET_OS_IPHONE
+#include <SDL2/SDL.h>
+#else
 #include "SDL.h"
+#endif
 #include <unordered_set>
 #include <algorithm>
 

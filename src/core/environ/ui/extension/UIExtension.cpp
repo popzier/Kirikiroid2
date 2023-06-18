@@ -1,8 +1,8 @@
 #include "UIExtension.h"
 #include "base/ObjectFactory.h"
 #include "ui/UIWidget.h"
-#include "cocostudio/ActionTimeline/CSLoader.h"
-#include "cocostudio/WidgetReader/NodeReader/NodeReader.h"
+#include "editor-support/cocostudio/ActionTimeline/CSLoader.h"
+#include "editor-support/cocostudio/WidgetReader/NodeReader/NodeReader.h"
 #include "base/CCEventDispatcher.h"
 
 USING_NS_CC;

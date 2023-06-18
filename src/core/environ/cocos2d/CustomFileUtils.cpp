@@ -11,7 +11,7 @@
 #ifdef MINIZIP_FROM_SYSTEM
 #include <minizip/unzip.h>
 #else // from our embedded sources
-#include "external/unzip/unzip.h"
+#include "unzip/unzip.h"
 #endif
 #include "ConfigManager/LocaleConfigManager.h"
 

@@ -8,6 +8,12 @@
 #include <sys/stat.h>
 #include <sys/resource.h>
 
+const std::vector<std::string> &TVPGetApplicationHomeDirectory()
+{
+    std::vector<std::string> path;
+    return path;
+}
+
 void TVPGetMemoryInfo(TVPMemoryInfo &m)
 {
 //    /* to read /proc/meminfo */
@@ -241,8 +247,8 @@ bool TVPCreateFolders(const ttstr &folder)
     printf("%s:%d -> %s\n", __FILE_NAME__, __LINE__, folderStr.c_str());
 //    return [manager createFileAtPath:[NSString stringWithCString:folder.AsStdString().c_str()] contents:nil attributes:nil];
     std::string command;
-    command = "mkdir -p " + folderStr;
-    system(command.c_str());
+//    command = "mkdir -p " + folderStr;
+//    system(command.c_str());
     return true;
 }
 

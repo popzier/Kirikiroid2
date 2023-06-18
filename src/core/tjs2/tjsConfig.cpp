@@ -1495,7 +1495,7 @@ static int fmt_fp(_tFILE *f, long double y, int w, int p, int fl, int t)
         prefix+=6;
     } else prefix++, pl=0;
 
-    if (finite(y)) {
+    if (isfinite(y)) {
         const tjs_char *s = (t&32)?TJS_W("inf"):TJS_W("INF");
         if (y!=y) s=(t&32)?TJS_W("nan"):TJS_W("NAN"), pl=0;
         pad(f, ' ', w, 3+pl, fl&~ZERO_PAD);

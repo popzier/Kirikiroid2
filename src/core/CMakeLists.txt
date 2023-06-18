@@ -54,7 +54,6 @@ list(REMOVE_ITEM KRKR_SRC_FILES
 add_library(krkr
     STATIC
     ${KRKR_SRC_FILES}
-    
 )
 
 
@@ -82,19 +81,27 @@ target_include_directories(
 	${3rdParty4Krkr_include}
 )
 
-MESSAGE(STATUS ${3rdParty4Krkr_include})
-    
-target_compile_definitions(krkr 
+set(CMAKE_XCODE_LINK_BUILD_PHASE_MODE ON)
+
+target_compile_definitions(krkr
     PUBLIC
     -DTJS_TEXT_OUT_CRLF -D__STDC_CONSTANT_MACROS -DUSE_UNICODE_FSTRING
     -DTJS_TEXT_OUT_CRLF -D_7ZIP_ST
 )
 
-target_link_libraries(krkr 
-    PUBLIC
-    cocos2d ext_freetype
-	${3rdParty4Krkr_libs}
-)
+if(IOS)
+    target_link_libraries(krkr 
+        PUBLIC
+        cocos2d ext_freetype
+    )
+elseif(MACOSX)
+    target_link_libraries(krkr 
+        PUBLIC
+        cocos2d ext_freetype
+        ${3rdParty4Krkr_libs}
+    )
+endif()
+
 
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-inconsistent-missing-override")

@@ -9,7 +9,7 @@
 #include "ui/UIText.h"
 #include "ui/UISlider.h"
 #include "cocos2d/MainScene.h"
-#include "cocos/ui/UIHelper.h"
+#include "ui/UIHelper.h"
 #include "movie/ffmpeg/KRMoviePlayer.h"
 #include "StorageImpl.h"
 
