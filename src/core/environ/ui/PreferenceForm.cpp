@@ -171,7 +171,7 @@ void tPreferenceItemSelectList::initController(const NodeMap &allNodes) {
 }
 
 const char* tPreferenceItemSelectList::getUIFileName() const  {
-	return "ui/comctrl/SelectListItem.csb";
+	return "ui/comctrl/SelectListItem2.csb";
 }
 
 void tPreferenceItemSelectList::showForm(cocos2d::Ref*) {
@@ -232,7 +232,7 @@ void tPreferenceItemKeyValPair::initController(const NodeMap &allNodes) {
 }
 
 const char* tPreferenceItemKeyValPair::getUIFileName() const  {
-	return "ui/comctrl/SelectListItem.csb";
+	return "ui/comctrl/SelectListItem2.csb";
 }
 
 void tPreferenceItemKeyValPair::onPressStateChangedToNormal() {
@@ -403,7 +403,7 @@ void tPreferenceItemFileSelect::initController(const NodeMap &allNodes)
 
 const char* tPreferenceItemFileSelect::getUIFileName() const
 {
-	return "ui/comctrl/SelectListItem.csb";
+	return "ui/comctrl/SelectListItem2.csb";
 }
 
 void tPreferenceItemFileSelect::onPressStateChangedToNormal()

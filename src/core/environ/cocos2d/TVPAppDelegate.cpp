@@ -1,4 +1,4 @@
-#include "AppDelegate.h"
+#include "TVPAppDelegate.h"
 #include "MainScene.h"
 #include "ui/MainFileSelectorForm.h"
 #include "ui/extension/UIExtension.h"
