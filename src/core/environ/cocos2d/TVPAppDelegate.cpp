@@ -107,8 +107,8 @@ void TVPAppDelegate::initGLContextAttrs() {
 
 void TVPAppDelegate::applicationScreenSizeChanged(int newWidth, int newHeight)
 {
-// 	auto director = Director::getInstance();
-// 	director->getOpenGLView()->setFrameSize(newWidth, newHeight);
+ 	auto director = Director::getInstance();
+ 	director->getOpenGLView()->setFrameSize(newWidth, newHeight);
 }
 
 void TVPOpenPatchLibUrl() {

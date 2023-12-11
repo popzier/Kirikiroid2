@@ -807,7 +807,8 @@ void TVPListForm::initFromInfo(const std::vector<cocos2d::ui::Widget*> &cells) {
 		ui::Helper::doLayout(cell);
 		listview->pushBackCustomItem(cell);
 	}
-	if (listview->getItems().back()->getBottomBoundary() < 0) {
+    
+	if (listview->getItems().size() > 0 && listview->getItems().back()->getBottomBoundary() < 0) {
 		listview->setClippingEnabled(true);
 	} else {
 		listview->setBounceEnabled(false);

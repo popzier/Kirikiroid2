@@ -90,7 +90,6 @@ void TVP_utime(const char *name, time_t modtime) {
 }
 
 std::string TVPGetPackageVersionString() {
-    printf("%s:%d\n", __FILE_NAME__, __LINE__);
     return "mac";
 }
 
@@ -155,7 +154,6 @@ void TVPProcessInputEvents() {
 }
 
 std::string TVPGetCurrentLanguage() {
-    printf("%s:%d\n", __FILE_NAME__, __LINE__);
     return "zh_cn";
 }
 
@@ -244,12 +242,14 @@ bool TVPCreateFolders(const ttstr &folder)
     {
         strRemove(folderStr, prefix);
     }
-    printf("%s:%d -> %s\n", __FILE_NAME__, __LINE__, folderStr.c_str());
-//    return [manager createFileAtPath:[NSString stringWithCString:folder.AsStdString().c_str()] contents:nil attributes:nil];
-    std::string command;
-//    command = "mkdir -p " + folderStr;
-//    system(command.c_str());
-    return true;
+    NSFileManager *manager = [NSFileManager defaultManager];
+    NSString *filePath = [NSString stringWithUTF8String:folderStr.c_str()];
+    NSError *error;
+    if (![manager fileExistsAtPath:filePath]) {
+        [manager createDirectoryAtPath:filePath withIntermediateDirectories:YES attributes:nil error:&error];
+        NSLog(@"%@", error);
+    }
+    return error != nil;
 }
 
 bool TVPRenameFile(const std::string &from, const std::string &to) {
