@@ -166,6 +166,10 @@ tjs_int TVPGetSelfUsedMemory()
 std::vector<std::string> TVPGetAppStoragePath() {
     printf("%s:%d\n", __FILE_NAME__, __LINE__);
     std::vector<std::string> ret;
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    NSString *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).firstObject;
+    ret.push_back([documentPath UTF8String]);
+#endif
     return ret;
 }
 
