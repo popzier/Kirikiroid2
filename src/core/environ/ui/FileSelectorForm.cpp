@@ -788,7 +788,10 @@ void TVPListForm::initFromInfo(const std::vector<cocos2d::ui::Widget*> &cells) {
 	ListView* listview = static_cast<ListView*>(reader.findController("list"));
 	float height = 10;
 	for (Widget* cell : cells) {
-		height += cell->getContentSize().height;
+        if (cell != nullptr)
+        {
+            height += cell->getContentSize().height;
+        }
 	}
 	_root->setAnchorPoint(Size(0.5, 0.5));
 	_root->setPosition(sceneSize / 2);

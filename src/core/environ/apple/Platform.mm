@@ -10,8 +10,16 @@
 
 const std::vector<std::string> &TVPGetApplicationHomeDirectory()
 {
-    std::vector<std::string> path;
-    return path;
+    static std::vector<std::string> applicationHomeDirectory;
+#if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
+    if (applicationHomeDirectory.empty())
+    {
+        @autoreleasepool {
+            applicationHomeDirectory.emplace_back([NSHomeDirectory() UTF8String]);
+        }
+    }
+#endif
+    return applicationHomeDirectory;
 }
 
 void TVPGetMemoryInfo(TVPMemoryInfo &m)
@@ -163,12 +171,14 @@ tjs_int TVPGetSelfUsedMemory()
     return 0;
 }
 
+
 std::vector<std::string> TVPGetAppStoragePath() {
-    printf("%s:%d\n", __FILE_NAME__, __LINE__);
-    std::vector<std::string> ret;
+    static std::vector<std::string> ret;
 #if CC_TARGET_PLATFORM == CC_PLATFORM_IOS
-    NSString *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).firstObject;
-    ret.push_back([documentPath UTF8String]);
+    @autoreleasepool {
+        NSString *documentPath = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).firstObject;
+        ret.push_back([documentPath UTF8String]);
+    }
 #endif
     return ret;
 }
@@ -203,12 +213,12 @@ void TVPExitApplication(int code)
 
 void TVPControlAdDialog(int adType, int arg1, int arg2)
 {
-    printf("%s:%d\n", __FILE_NAME__, __LINE__);
+    printf("TVPControlAdDialog=> %s:%d\n", __FILE_NAME__, __LINE__);
 }
 
 bool TVPCheckStartupArg()
 {
-    printf("%s:%d\n", __FILE_NAME__, __LINE__);
+    printf("TVPCheckStartupArg\n");
     return false;
 }
 
@@ -217,7 +227,6 @@ void TVPSendToOtherApp(const std::string &filename) {
 }
 
 std::vector<std::string> TVPGetDriverPath() {
-    printf("%s:%d\n", __FILE_NAME__, __LINE__);
     std::vector<std::string> ret;
     return ret;
 }
@@ -238,22 +247,45 @@ bool strRemove(std::string& src, std::string_view substr)
     return false;
 }
 
+NSString* TVPFixAppHomeDictionary(NSString* path)
+{
+    NSString* fixedPath = path;
+    NSArray<NSString *> *paths = @[
+        NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, true).firstObject
+    ];
+    
+    for (NSString* sysPath in paths) {
+        if ([path hasPrefix:[sysPath lowercaseString]]) {
+            fixedPath = [sysPath stringByAppendingString:[path substringFromIndex:sysPath.length]];
+            break;
+        }
+    }
+    return fixedPath;
+}
+
 bool TVPCreateFolders(const ttstr &folder)
 {
     auto folderStr = folder.AsStdString();
     std::string prefix = "file://.";
+    bool ret = false;
+    
     if (strPreCompare(folderStr, prefix.c_str()))
     {
         strRemove(folderStr, prefix);
     }
-    NSFileManager *manager = [NSFileManager defaultManager];
-    NSString *filePath = [NSString stringWithUTF8String:folderStr.c_str()];
-    NSError *error;
-    if (![manager fileExistsAtPath:filePath]) {
-        [manager createDirectoryAtPath:filePath withIntermediateDirectories:YES attributes:nil error:&error];
-        NSLog(@"%@", error);
+    @autoreleasepool {
+        NSFileManager *manager = [NSFileManager defaultManager];
+        NSString *filePath = [NSString stringWithUTF8String:folderStr.c_str()];
+        NSError *error;
+        filePath = TVPFixAppHomeDictionary(filePath);
+        if (![manager fileExistsAtPath:filePath])
+        {
+            [manager createDirectoryAtPath:filePath withIntermediateDirectories:YES attributes:nil error:&error];
+            NSLog(@"TVPCreateFolders: %@", error);
+        }
+        ret = error == nil;
     }
-    return error != nil;
+    return ret;
 }
 
 bool TVPRenameFile(const std::string &from, const std::string &to) {

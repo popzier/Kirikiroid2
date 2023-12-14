@@ -287,12 +287,14 @@ void TVPOpenPatchLibUrl();
 
 void TVPMainFileSelectorForm::showMenu(Ref*) {
     int archiveType;
+    auto appPath = TVPGetAppStoragePath()[0];
+    std::string local_path = appPath + "/夏雪/运行游戏.xp3";
 //    std::string local_path = "/Users/chentiejun/Downloads/御界神纪1-2/御界神纪EP1/运行游戏.xp3";
-//    if ((archiveType = TVPCheckArchive(local_path)) == 1) {
-//        startup(local_path);
-//    }
-//
-//    return;
+    if ((archiveType = TVPCheckArchive(local_path)) == 1) {
+        startup(local_path);
+    }
+
+    return;
 	if (!_menu) {
 		Size uiSize = getContentSize();
 		CSBReader reader;
